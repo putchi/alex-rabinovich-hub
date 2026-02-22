@@ -4,11 +4,11 @@ services:
       context: .
       args:
         - VITE_OWNER_NAME
-        - VITE_OWNER_TITLE
-        - VITE_LINKEDIN_URL
-        - VITE_GITHUB_URL
         - VITE_SITE_TITLE
         - VITE_SITE_DESCRIPTION
+        - VITE_SANITY_PROJECT_ID
+        - VITE_SANITY_DATASET
+        - VITE_SANITY_TOKEN
     ports:
       - "8080:8080"
     env_file:

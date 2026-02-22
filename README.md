@@ -8,7 +8,7 @@ Personal portfolio site built with React + TypeScript + Vite. Content is managed
 |---|---|
 | Frontend | React 18 + TypeScript + Vite + TailwindCSS + shadcn/ui + Framer Motion |
 | Data fetching | TanStack React Query v5 |
-| CMS | Sanity v3 (project `tpg3gf74`, dataset `production`) |
+| CMS | Sanity v3 (GROQ queries, dataset `production`) |
 | Studio | `studio/` subdirectory — deploy via `sanity deploy` |
 
 Content lives in Sanity; the app fetches it via GROQ queries on page load. A skeleton loading state is shown while data loads.
@@ -18,12 +18,12 @@ Content lives in Sanity; the app fetches it via GROQ queries on page load. A ske
 ### Frontend
 
 ```sh
-cp .env.example .env   # fill in VITE_SANITY_PROJECT_ID + VITE_SANITY_DATASET
+cp .env.example .env   # fill in VITE_SANITY_PROJECT_ID, VITE_SANITY_DATASET, VITE_SANITY_TOKEN
 npm install
 npm run dev
 ```
 
-Hot reload at **http://localhost:8080**
+Hot reload at **http://localhost:8080** (or the next available port if 8080 is in use)
 
 ### Sanity Studio
 
@@ -39,10 +39,10 @@ npm run dev            # opens at http://localhost:3333
 # First run
 ./start.sh
 
-# Force rebuild
+# Force rebuild (also starts local dev server)
 ./start.sh --rebuild
 
-# Restart containers
+# Restart containers (also starts local dev server)
 ./start.sh --restart
 
 # Stop
@@ -75,9 +75,13 @@ Copy `.env.example` to `.env` and fill in your values — never commit `.env`.
 |---|---|---|
 | `VITE_SANITY_PROJECT_ID` | Yes | Sanity project ID (found at manage.sanity.io) |
 | `VITE_SANITY_DATASET` | Yes | Sanity dataset name (usually `production`) |
+| `VITE_SANITY_TOKEN` | If dataset is private | Read-only Viewer token — create at manage.sanity.io → API → Tokens |
+| `VITE_OWNER_NAME` | Yes | Your name (used in meta tags before React loads) |
+| `VITE_SITE_TITLE` | Yes | Browser tab title |
+| `VITE_SITE_DESCRIPTION` | Yes | Meta description for SEO |
 
 The following variables are **deprecated** — content previously set via these env vars is now managed in Sanity:
-`VITE_OWNER_NAME`, `VITE_OWNER_TITLE`, `VITE_LINKEDIN_URL`, `VITE_GITHUB_URL`, `VITE_SITE_TITLE`, `VITE_SITE_DESCRIPTION`
+`VITE_OWNER_TITLE`, `VITE_LINKEDIN_URL`, `VITE_GITHUB_URL`
 
 ## Deploy to Render
 
@@ -92,6 +96,10 @@ The following variables are **deprecated** — content previously set via these 
    |-----|----------|
    | `VITE_SANITY_PROJECT_ID` | Yes |
    | `VITE_SANITY_DATASET` | Yes |
+   | `VITE_SANITY_TOKEN` | If dataset is private |
+   | `VITE_OWNER_NAME` | Yes |
+   | `VITE_SITE_TITLE` | Yes |
+   | `VITE_SITE_DESCRIPTION` | Yes |
 
 4. Set **Health Check Path** under Advanced: `/`
 5. Click **Deploy Web Service**
