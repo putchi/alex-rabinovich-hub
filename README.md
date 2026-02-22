@@ -107,9 +107,19 @@ The following variables are **deprecated** — content previously set via these 
 Render auto-deploys on every push to `master`.
 Free plan spins down after ~15 minutes of inactivity.
 
+### Fix CORS for private Sanity datasets
+
+If your Sanity dataset is private and the site shows a CORS error in production:
+
+1. Go to **https://www.sanity.io/manage/project/YOUR_PROJECT_ID/api**
+2. Scroll to **CORS Origins** → **Add CORS origin**
+3. Enter your production URL (e.g. `https://your-app.onrender.com`)
+4. Check **Allow credentials**
+5. Save — no redeploy needed, takes effect immediately
+
 ## Sanity Studio Deployment
 
 ```sh
 cd studio
-npm run deploy   # publishes to alex-rabinovich.sanity.studio
+npm run deploy   # publishes to your-hostname.sanity.studio (configured in sanity.cli.ts)
 ```
