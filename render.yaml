@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: alexrabinovich
+    env: docker
+    plan: free
+    envVars:
+      - key: VITE_OWNER_NAME
+        sync: false
+      - key: VITE_OWNER_TITLE
+        sync: false
+      - key: VITE_LINKEDIN_URL
+        sync: false
+      - key: VITE_GITHUB_URL
+        sync: false
+      - key: VITE_SITE_TITLE
+        sync: false
+      - key: VITE_SITE_DESCRIPTION
+        sync: false
