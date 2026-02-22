@@ -4,7 +4,8 @@ import { ArrowDown } from "lucide-react";
 const About = () => {
   const skills = [
     "Go", "TypeScript", "Java", "Node.js",
-    "React", "AWS", "Microservices", "Kafka",
+    "Python", "React", "AWS", "Microservices",
+    "Kafka", "RabbitMQ", "Redis", "MongoDB",
   ];
 
   return (
