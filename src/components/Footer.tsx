@@ -1,10 +1,13 @@
 import { Github, Linkedin } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSanityData";
 
 const Footer = () => {
+  const { data: settings } = useSiteSettings();
   const year = new Date().getFullYear();
+
   const socials = [
-    { icon: Github, href: import.meta.env.VITE_GITHUB_URL || '#', label: "GitHub" },
-    { icon: Linkedin, href: import.meta.env.VITE_LINKEDIN_URL || '#', label: "LinkedIn" },
+    { icon: Github, href: settings?.githubUrl || '#', label: "GitHub" },
+    { icon: Linkedin, href: settings?.linkedinUrl || '#', label: "LinkedIn" },
   ];
 
   return (

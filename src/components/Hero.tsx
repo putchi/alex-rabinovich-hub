@@ -1,9 +1,16 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useSiteSettings, useHeroData } from "@/hooks/useSanityData";
+import HeroSkeleton from "@/components/skeletons/HeroSkeleton";
 
 const Hero = () => {
-  const ownerName = import.meta.env.VITE_OWNER_NAME || 'Your Name';
-  const ownerTitle = import.meta.env.VITE_OWNER_TITLE || 'Your Title';
+  const { data: settings, isLoading: settingsLoading } = useSiteSettings();
+  const { data: hero, isLoading: heroLoading } = useHeroData();
+
+  if (settingsLoading || heroLoading) return <HeroSkeleton />;
+
+  const ownerName = settings?.ownerName ?? '';
+  const ownerTitle = settings?.ownerTitle ?? '';
   const firstName = ownerName.split(' ')[0];
   const lastName = ownerName.split(' ').slice(1).join(' ');
 
@@ -45,11 +52,7 @@ const Hero = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
           className="text-muted-foreground font-body text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed"
         >
-          Engineering leader in Fintech and distributed systems — focused on reliability,
-          scale, and making AI work in production, not just in demos. 11+ years building
-          and leading distributed teams across geographies. I operate at the intersection
-          of hands-on architecture and people leadership, and I take seriously how AI systems
-          are built, evaluated, and deployed - keeping engineering judgment firmly human.
+          {hero?.bio}
         </motion.p>
       </motion.div>
 

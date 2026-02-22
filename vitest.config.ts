@@ -28,6 +28,8 @@ export default defineConfig({
         "src/components/ui/**",
         "src/components/NavLink.tsx",
         "src/hooks/**",
+        "src/sanity/**",
+        "studio/**",
       ],
     },
   },

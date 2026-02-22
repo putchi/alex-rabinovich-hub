@@ -1,38 +1,51 @@
 import { render, screen } from '@testing-library/react';
+import { vi, type Mock } from 'vitest';
 import Footer from './Footer';
+import * as sanityHooks from '@/hooks/useSanityData';
+
+vi.mock('@/hooks/useSanityData', () => ({
+  useSiteSettings: vi.fn(),
+  useHeroData: vi.fn(),
+  useAboutData: vi.fn(),
+  useProjectsData: vi.fn(),
+}));
 
 describe('Footer', () => {
   it('renders without crashing', () => {
+    (sanityHooks.useSiteSettings as Mock).mockReturnValue({ data: undefined, isLoading: false });
     render(<Footer />);
   });
 
-  it('renders GitHub link from env var', () => {
-    vi.stubEnv('VITE_GITHUB_URL', 'https://github.com/testuser');
+  it('renders GitHub link from Sanity data', () => {
+    (sanityHooks.useSiteSettings as Mock).mockReturnValue({
+      data: { githubUrl: 'https://github.com/testuser', linkedinUrl: '#' },
+      isLoading: false,
+    });
     render(<Footer />);
     const link = screen.getByRole('link', { name: /github/i });
     expect(link).toHaveAttribute('href', 'https://github.com/testuser');
-    vi.unstubAllEnvs();
   });
 
-  it('renders LinkedIn link from env var', () => {
-    vi.stubEnv('VITE_LINKEDIN_URL', 'https://linkedin.com/in/testuser');
+  it('renders LinkedIn link from Sanity data', () => {
+    (sanityHooks.useSiteSettings as Mock).mockReturnValue({
+      data: { githubUrl: '#', linkedinUrl: 'https://linkedin.com/in/testuser' },
+      isLoading: false,
+    });
     render(<Footer />);
     const link = screen.getByRole('link', { name: /linkedin/i });
     expect(link).toHaveAttribute('href', 'https://linkedin.com/in/testuser');
-    vi.unstubAllEnvs();
   });
 
   it('renders copyright text', () => {
+    (sanityHooks.useSiteSettings as Mock).mockReturnValue({ data: undefined, isLoading: false });
     render(<Footer />);
     expect(screen.getByText(/Built with craft and care/i)).toBeInTheDocument();
   });
 
-  it('falls back to # when env vars not set', () => {
-    vi.stubEnv('VITE_GITHUB_URL', '');
-    vi.stubEnv('VITE_LINKEDIN_URL', '');
+  it('falls back to # when data not yet loaded', () => {
+    (sanityHooks.useSiteSettings as Mock).mockReturnValue({ data: undefined, isLoading: false });
     render(<Footer />);
     const links = screen.getAllByRole('link');
     links.forEach(link => expect(link).toHaveAttribute('href', '#'));
-    vi.unstubAllEnvs();
   });
 });

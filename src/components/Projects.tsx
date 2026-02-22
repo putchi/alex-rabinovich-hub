@@ -1,29 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  link: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "AI Career Chatbot",
-    description:
-      "A conversational AI assistant that answers questions about my professional background, experience, and skills — built with RAG architecture and deployed on Render.",
-    tags: ["React", "LLM", "RAG", "Node.js"],
-    link: "https://alex-rabinovich-chat.onrender.com/",
-  },
-  {
-    title: "Something is Baking...",
-    description:
-      "Next project in the works. Stay tuned — it involves AI, distributed systems, and possibly a lot of coffee.",
-    tags: ["Coming Soon"],
-    link: "#",
-  },
-];
+import { useProjectsData } from "@/hooks/useSanityData";
+import ProjectsSkeleton from "@/components/skeletons/ProjectsSkeleton";
+import type { Project } from "@/sanity/types";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
   <motion.a
@@ -48,7 +27,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     </p>
 
     <div className="flex flex-wrap gap-2">
-      {project.tags.map((tag) => (
+      {project.tags?.map((tag) => (
         <span key={tag} className="text-xs font-body text-muted-foreground bg-muted px-3 py-1 rounded-full">
           {tag}
         </span>
@@ -58,6 +37,10 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 );
 
 const Projects = () => {
+  const { data: projects, isLoading } = useProjectsData();
+
+  if (isLoading) return <ProjectsSkeleton />;
+
   return (
     <section id="projects" className="py-32 px-6">
       <div className="max-w-5xl mx-auto">
@@ -75,8 +58,8 @@ const Projects = () => {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 gap-6">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
+          {projects?.map((project, i) => (
+            <ProjectCard key={project._id} project={project} index={i} />
           ))}
         </div>
       </div>
