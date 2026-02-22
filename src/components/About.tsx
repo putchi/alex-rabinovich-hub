@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useAboutData } from "@/hooks/useSanityData";
+import AboutSkeleton from "@/components/skeletons/AboutSkeleton";
 
 const About = () => {
-  const skills = [
-    "Go", "TypeScript", "Java", "Node.js",
-    "Python", "React", "AWS", "Microservices",
-    "Kafka", "RabbitMQ", "Redis", "MongoDB",
-  ];
+  const { data: about, isLoading } = useAboutData();
+
+  if (isLoading) return <AboutSkeleton />;
 
   return (
     <section id="about" className="py-32 px-6">
@@ -32,16 +32,10 @@ const About = () => {
             className="space-y-6"
           >
             <p className="text-secondary-foreground font-body text-lg leading-relaxed">
-              I'm an engineering leader who loves solving problems at the intersection of scale, reliability, and
-              business impact. I lead distributed teams building global payments infrastructure —
-              where uptime isn't a metric, it's a responsibility.
+              {about?.paragraph1}
             </p>
             <p className="text-muted-foreground font-body leading-relaxed">
-              Beyond core engineering work, I explore AI and LLM architectures hands-on — working with agentic AI workflows and RAG architectures 
-              and bringing that experience directly into engineering decisions. 
-              I lead POCs, shape AI integration strategy, and think carefully about where AI actually adds business value versus where it adds noise. 
-              I care about how these systems are designed, evaluated, and deployed responsibly, while keeping engineering judgment firmly human.
-              I believe the best engineers stay curious, stay humble, and never stop shipping.
+              {about?.paragraph2}
             </p>
           </motion.div>
 
@@ -53,7 +47,7 @@ const About = () => {
           >
             <p className="text-muted-foreground font-body text-sm uppercase tracking-widest mb-4">Technologies</p>
             <div className="flex flex-wrap gap-3">
-              {skills.map((skill) => (
+              {about?.skills?.map((skill) => (
                 <span
                   key={skill}
                   className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-body text-sm border border-border hover:border-primary/40 transition-colors duration-300"
