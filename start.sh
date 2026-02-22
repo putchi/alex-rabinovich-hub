@@ -47,3 +47,8 @@ fi
 docker compose up -d
 echo "Started Docker services."
 echo "  → http://localhost:8080"
+
+if [ "$RESTART" = true ] || [ "$REBUILD" = true ]; then
+  echo "Starting local dev server..."
+  npm run dev
+fi
