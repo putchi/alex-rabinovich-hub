@@ -75,7 +75,7 @@ Coverage exclusions (no tests needed for these):
 ## Git Commit Rules
 
 **When to commit:**
-Read-only git commands (`git log`, `git diff`, `git status`, `git show`, etc.) are allowed at any time. Never run write commands — `git add`, `git commit`, `git push`, `git rebase`, `git merge`, `git reset`, `git stash`, or anything that modifies the repo state — unless explicitly instructed by the user.
+Read-only git commands (`git log`, `git diff`, `git status`, `git show`, etc.) are allowed at any time. Never run write commands — `git add`, `git commit`, `git push`, `git rebase`, `git merge`, `git reset`, `git stash`, or anything that modifies the repo state — unless explicitly instructed by the user. Do not perform any git write actions until all tasks are complete and tested.
 
 **How to write commit messages:**
 - Imperative mood only: "Fix bug" not "Fixed bug" or "Fixes bug"
@@ -85,3 +85,12 @@ Read-only git commands (`git log`, `git diff`, `git status`, `git show`, etc.) a
 - No AI-flavored words: seamlessly, robust, streamline, ensure, utilize, facilitate
 - No `Co-authored-by` trailer or any AI attribution
 - Body only when context is non-obvious — explain *why*, never *what* (the diff shows what)
+
+**Examples:**
+```
+# Bad
+✨ Enhance payment flow to streamline user experience and ensure robust error handling
+
+# Good
+Fix retry logic on failed payment webhook
+```
