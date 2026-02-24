@@ -28,3 +28,7 @@ dist-ssr
 
 # Git worktrees
 .worktrees
+
+# Local MCP / IDE config
+.playwright-mcp/
+.playwright-screenshots/

@@ -72,10 +72,19 @@ Coverage exclusions (no tests needed for these):
 - `src/sanity/**`
 - Config files, `main.tsx`, `App.tsx`, `vite-env.d.ts`
 
+## Playwright / Browser Debugging
+
+When using the Playwright MCP for UI debugging or visual verification, screenshots are saved to
+`.playwright-screenshots/` (gitignored). This is configured via `.mcp.json` in the project root using `--output-dir
+.playwright-screenshots`.
+
+Never pass explicit root-relative filenames like `screenshot.png` to `browser_take_screenshot` — omit the `filename`
+parameter and let the output dir handle it.
+
 ## Git Commit Rules
 
 **When to commit:**
-Read-only git commands (`git log`, `git diff`, `git status`, `git show`, etc.) are allowed at any time. Never run write commands — `git add`, `git commit`, `git push`, `git rebase`, `git merge`, `git reset`, `git stash`, or anything that modifies the repo state — unless explicitly instructed by the user. Do not perform any git write actions until all tasks are complete and tested.
+Read-only git commands (`git log`, `git diff`, `git status`, `git show`, etc.) are allowed at any time. Never run write commands — `git add`, `git commit`, `git push`, `git rebase`, `git merge`, `git reset`, `git stash`, or anything that modifies the repo state — unless explicitly instructed by the user. Do not perform any git write actions until all tasks are complete and tested, and always ask the user before proceeding.
 
 **How to write commit messages:**
 - Imperative mood only: "Fix bug" not "Fixed bug" or "Fixes bug"
