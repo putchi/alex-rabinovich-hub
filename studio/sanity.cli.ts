@@ -6,4 +6,12 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'alex-rabinovich',
+  deployment: {
+    /**
+     * Enable auto-updates for studios.
+     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
+     */
+    autoUpdates: true,
+    appId: 'h389ui1fs826l0kn378px92s',
+  },
 })

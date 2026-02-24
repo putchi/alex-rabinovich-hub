@@ -33,7 +33,7 @@ npm run deploy         # deploy studio to Sanity hosting
 - **React 18 + TypeScript + Vite (SWC)** — SPA
 - **TailwindCSS + shadcn/ui (Radix UI)** — styling
 - **TanStack Query v5** — data fetching
-- **Sanity v3** — headless CMS (content in Sanity cloud)
+- **Sanity v5** — headless CMS (content in Sanity cloud)
 - **Docker + Nginx** — serves SPA on port 8080
 - **Render** — auto-deploys on push to master
 
@@ -61,6 +61,8 @@ Never commit `.env`.
 - **Path alias** — `@/*` maps to `./src/*` (tsconfig + Vite).
 - **TypeScript permissive** — `strictNullChecks: false`, `noImplicitAny: false`. Do not rely on strict type checking.
 - **Two lockfiles** — `bun.lockb` (legacy) and `package-lock.json` (current). Use `npm`.
+- **Sanity two deploy steps** — `npm run deploy` (in `studio/`) rebuilds and pushes the Studio bundle; `npx sanity@latest schema deploy` (also in `studio/`) updates API-level schema validation. Both must be run after schema changes — otherwise Studio shows "Unknown field found" warnings even though data is valid.
+- **Sanity `appId`** — `studio/sanity.cli.ts` has `deployment.appId` set; required to avoid being prompted on every `npm run deploy`.
 
 ## Testing
 

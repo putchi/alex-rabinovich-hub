@@ -8,7 +8,7 @@ Personal portfolio site built with React + TypeScript + Vite. Content is managed
 |---|---|
 | Frontend | React 18 + TypeScript + Vite + TailwindCSS + shadcn/ui + Framer Motion |
 | Data fetching | TanStack React Query v5 |
-| CMS | Sanity v3 (GROQ queries, dataset `production`) |
+| CMS | Sanity v5 (GROQ queries, dataset `production`) |
 | Studio | `studio/` subdirectory — deploy via `sanity deploy` |
 
 Content lives in Sanity; the app fetches it via GROQ queries on page load. A skeleton loading state is shown while data loads.
@@ -123,3 +123,9 @@ If your Sanity dataset is private and the site shows a CORS error in production:
 cd studio
 npm run deploy   # publishes to your-hostname.sanity.studio (configured in sanity.cli.ts)
 ```
+
+Sanity has two separate deploy steps:
+- `npm run deploy` — rebuilds and publishes the **Studio bundle** (the editor UI)
+- `npx sanity@latest schema deploy` — updates **API-level schema validation** only
+
+After adding or changing schema fields, both must be run. Skipping the schema deploy causes "Unknown field found" warnings in Studio even though data is valid.
